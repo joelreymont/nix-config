@@ -1,0 +1,8 @@
+theme = "gruvbox_light"
+
+[editor.soft-wrap]
+enable = true
+
+# [editor.lsp]
+# display-inlay-hints = true
+

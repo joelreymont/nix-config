@@ -12,7 +12,21 @@
     git
     jujutsu
     nushell
+    nil
+    nixd
+    alejandra
   ];
+
+  homebrew = {
+    enable = false;
+    # onActivation.cleanup = "uninstall";
+
+    taps = [ ];
+    brews = [
+    ];
+    casks = [
+    ];
+  };
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
@@ -29,12 +43,14 @@
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "${platform}";
 
+  nix.package = pkgs.nixFlakes; # or pkgs.nixUnstable
+
   # Let Determinate Nix handle Nix configuration
   nix.enable = false;
 
   nixpkgs.config.allowUnfree = true;
 
-  system.primaryUser = "joelr";
+  system.primaryUser = "joel";
 
   system.defaults = {
     dock.autohide = true;
@@ -54,5 +70,5 @@
   system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
 
   # Required by Home Manager
-  users.users.joelr.home = "/Users/joelr";
+  users.users.joel.home = "/Users/joel";
 }

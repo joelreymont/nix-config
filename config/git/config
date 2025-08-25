@@ -1,0 +1,55 @@
+[alias]
+	ci = commit
+	co = checkout
+	st = status
+	dc = diff --cached
+	ap = add -p
+	cp = cherry-pick
+	vv = rev-parse --short HEAD
+	pb = pull --rebase
+	rc = rebase --continue
+	br = branch 
+	rh = reset --hard 
+	re = restore --staged
+	lo = log --pretty=oneline
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+[core]
+	excludesfile = /Users/joelr/.gitignore
+	autocrlf = input
+[color]
+	status = auto
+	branch = auto
+[user]
+	email = 18791+joelreymont@users.noreply.github.com
+	name = Joel Reymont
+	signingkey = 5EE3518221A8F395
+[github]
+	token = ff6b31a022d67235bca560f762b7f831
+[push]
+	default = simple
+[url "git://github.com/ghc/packages-"]
+	insteadOf = git://github.com/ghc/packages/
+[url "http://github.com/ghc/packages-"]
+	insteadOf = http://github.com/ghc/packages/
+[url "https://github.com/ghc/packages-"]
+	insteadOf = https://github.com/ghc/packages/
+[url "ssh://git@github.com/ghc/packages-"]
+	insteadOf = ssh://git@github.com/ghc/packages/
+[url "git@github.com:/ghc/packages-"]
+	insteadOf = git@github.com:/ghc/packages/
+[filter "media"]
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[credential]
+	helper = osxkeychain
+[credential "https://gitlab.hex-rays.com/"]
+        username = joelr1@gmail.com
+[init]
+	defaultBranch = master

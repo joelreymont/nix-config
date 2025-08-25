@@ -1,0 +1,21 @@
+[aliases]
+ci = ['commit']
+push = ['git', 'push']
+sync = ['git', 'fetch', '--all-remotes']
+evolve = ['rebase', '--skip-emptied', '-d', 'master']
+mark = ['bookmark', 'set', 'master', '-r', '@-']
+clone = ['git', 'clone']
+
+[snapshot]
+max-new-file-size = 1479557
+
+[user]
+name = "Joel Reymont"
+email = "18791+joelreymont@users.noreply.github.com"
+
+[revset-aliases]
+"trunk()" = "master@origin"
+"immutable_heads()" = "none()"
+
+[git]
+ignore-files = ["lfs"]

@@ -1,5 +1,5 @@
 # On a new Mac:
-#   sudo nix run nix-darwin -- switch --flake github:joelreymont/config#nix
+#   sudo nix run nix-darwin -- switch --flake .
 # Or to update:
 #   nix flake update
 #   sudo darwin-rebuild switch --flake .
@@ -19,50 +19,45 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      nix-darwin,
-      home-manager,
-      nixpkgs,
-    }:
-    let
-      platform = "aarch64-darwin";
-    in
-    let
-      pkgs = nixpkgs.legacyPackages.${platform};
-    in
-    let
-      host = builtins.readFile (
-        pkgs.runCommand "hostname" { } ''
-          /usr/sbin/scutil --get LocalHostName|tr -d '\n' > $out
-        ''
-      );
-    in
-    {
-      # darwin-rebuild build --flake .
-      darwinConfigurations.${host} = nix-darwin.lib.darwinSystem {
-        modules = [
-          (import ./config.nix {
-            inherit
-              self
-              platform
-              pkgs
-              host
-              ;
-          })
+  outputs = {
+    self,
+    nix-darwin,
+    home-manager,
+    nixpkgs,
+  }: let
+    platform = "aarch64-darwin";
+  in let
+    pkgs = nixpkgs.legacyPackages.${platform};
+  in let
+    host = builtins.readFile (
+      pkgs.runCommand "hostname" {} ''
+        /usr/sbin/scutil --get LocalHostName|tr -d '\n' > $out
+      ''
+    );
+  in {
+    # darwin-rebuild build --flake .
+    darwinConfigurations.${host} = nix-darwin.lib.darwinSystem {
+      modules = [
+        (import ./config.nix {
+          inherit
+            self
+            platform
+            pkgs
+            host
+            ;
+        })
 
-          home-manager.darwinModules.home-manager
-          {
-            # `home-manager` config
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.joelr = ./home.nix;
-          }
-        ];
-      };
-
-      # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations.${host}.pkgs;
+        home-manager.darwinModules.home-manager
+        {
+          # `home-manager` config
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.joel = ./home.nix;
+        }
+      ];
     };
+
+    # Expose the package set, including overlays, for convenience.
+    darwinPackages = self.darwinConfigurations.${host}.pkgs;
+  };
 }

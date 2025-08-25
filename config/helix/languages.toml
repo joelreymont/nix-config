@@ -1,0 +1,88 @@
+[[language]]
+name = "markdown"
+language-servers = [ "iwe" ] # you might want more LSPs in here
+auto-format = true # optional, enable format-on-save
+# formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}
+
+[language-server.iwe]
+command = "iwes"
+
+[[language]]
+name = "python"
+roots = ["pyproject.toml", "setup.py", "Poetry.lock", ".git"]
+language-servers = ["pyright"]
+auto-format = true
+formatter = {command = 'black', args = ["--quiet", "-"]}
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"] 
+config = ""
+
+[[language]]
+name = "ocaml"
+auto-format = true
+formatter = { command = "ocamlformat", args = [
+  "-",
+  "--impl",
+  # "--enable-outside-detected-project", # Enable only if you want to format files outside of projects
+] }
+
+[[language]]
+name = "rust"
+formatter = { command = "rustfmt" , args = ["+nightly"] }
+auto-format = true
+
+[language-server.rust-analyzer]
+config = { check = { command = "clippy" } }
+
+[[language]]
+name = "haskell"
+roots = ["Setup.hs", "stack.yaml", "*.cabal"]
+formatter = {command = 'fourmolu', args = ["--stdin-input-file", "%{buffer_name}"]}
+auto-format = true
+
+[[language]]
+name = "racket"
+scope = "source.rkt"
+auto-format = true
+formatter = { command = "raco", args = ["fmt", "--indent", "2", "--width", "70"]}
+roots = []
+file-types = ["rkt"]
+shebangs = ["racket"]
+comment-token = ";"
+# grammar = "racket"
+language-servers = ["racket"]
+
+[language-server.racket]
+command = "racket"
+args = ["-l", "racket-langserver"] 
+
+# [[grammar]]
+# name = "racket"
+# source = { git = "https://github.com/6cdh/tree-sitter-racket", rev = "09cb27a06415bce529a26774a842f5a80d50d362" }
+# 
+[[language]]
+name = "lalrpop"
+language-servers = ["lalrpop"]
+scope = "source.lalrpop"
+file-types = ["lalrpop"]
+comment-tokens = "//"
+indent = { tab-width = 2, unit = "  " }
+
+[language-server.lalrpop]
+command = "lalrpop-lsp"
+args = ["--stdin"]
+
+[[language]]
+name = "slarlark"
+scope = "source.starlark"
+injection-regex = "(starlark|bzl|bazel|buck)"
+file-types = ["bzl", "bazel", "star", { glob = "BUILD" }, { glob = "BUCK" }, { glob = "BUILD.*" }, { glob = "Tiltfile" }, { glob = "WORKSPACE" }, { glob = "WORKSPACE.bzlmod" }]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+grammar = "python"
+formatter = { command = "buildifier", args = [] }
+auto-format = true
+language-servers = [ "starpls" ]
+
