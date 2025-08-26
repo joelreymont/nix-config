@@ -10,6 +10,7 @@
   environment.systemPackages = with pkgs; [
     helix
     git
+    git-lfs
     jujutsu
     nushell
     nil
