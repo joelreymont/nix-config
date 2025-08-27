@@ -30,7 +30,7 @@
       diff = {
         external = "${pkgs.difftastic}/bin/difft";
       };
-      aliases = {
+      alias = {
         ci = "commit";
         co = "checkout";
         st = "status";

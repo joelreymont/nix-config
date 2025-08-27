@@ -22,6 +22,7 @@
   imports = [
     ./apps/git.nix
     ./apps/nushell.nix
+    ./apps/helix
   ];
 
   xdg.configFile."ghostty/config".text = ''
