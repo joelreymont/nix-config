@@ -16,6 +16,7 @@
     nil
     nixd
     alejandra
+    uv
   ];
 
   homebrew = {
