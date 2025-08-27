@@ -3,8 +3,7 @@
   platform,
   pkgs,
   ...
-}:
-{
+}: {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -21,9 +20,8 @@
 
   homebrew = {
     enable = false;
-    # onActivation.cleanup = "uninstall";
-
-    taps = [ ];
+    onActivation.cleanup = "uninstall";
+    taps = [];
     brews = [
     ];
     casks = [

@@ -8,8 +8,8 @@
 	vv = rev-parse --short HEAD
 	pb = pull --rebase
 	rc = rebase --continue
-	br = branch 
-	rh = reset --hard 
+	br = branch
+	rh = reset --hard
 	re = restore --staged
 	lo = log --pretty=oneline
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
@@ -28,16 +28,6 @@
 	token = ff6b31a022d67235bca560f762b7f831
 [push]
 	default = simple
-[url "git://github.com/ghc/packages-"]
-	insteadOf = git://github.com/ghc/packages/
-[url "http://github.com/ghc/packages-"]
-	insteadOf = http://github.com/ghc/packages/
-[url "https://github.com/ghc/packages-"]
-	insteadOf = https://github.com/ghc/packages/
-[url "ssh://git@github.com/ghc/packages-"]
-	insteadOf = ssh://git@github.com/ghc/packages/
-[url "git@github.com:/ghc/packages-"]
-	insteadOf = git@github.com:/ghc/packages/
 [filter "media"]
 	clean = git media clean %f
 	smudge = git media smudge %f

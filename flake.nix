@@ -49,7 +49,6 @@
 
         home-manager.darwinModules.home-manager
         {
-          # `home-manager` config
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.joel = ./home.nix;
