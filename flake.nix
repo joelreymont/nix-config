@@ -7,62 +7,67 @@
   description = "Joel's nix-darwin system flake";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = {
-    self,
-    nix-darwin,
-    home-manager,
-    nixpkgs,
-  }: let
-    platform = "aarch64-darwin";
-  in let
-    pkgs = nixpkgs.legacyPackages.${platform};
-  in let
-    host = builtins.readFile (
-      pkgs.runCommand "hostname" {} (
-        if pkgs.stdenv.isDarwin
-        then ''
-          /usr/sbin/scutil --get LocalHostName|tr -d '\n' > $out
-        ''
-        else ''
-          hostname|tr -d '\n' > $out
-        ''
-      )
-    );
-  in {
+  outputs =
+    inputs@{
+      self,
+      nix-darwin,
+      home-manager,
+      nixpkgs,
+    }:
     # darwin-rebuild build --flake .
-    darwinConfigurations.${host} = nix-darwin.lib.darwinSystem {
-      modules = [
-        (import ./config.nix {
-          inherit
-            self
-            platform
-            pkgs
-            host
-            ;
-        })
-
-        home-manager.darwinModules.home-manager
+    let
+      commonModules = [
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.joel = ./home.nix;
         }
       ];
-    };
+      darwinSystem = nix-darwin.lib.darwinSystem rec {
+        system = "aarch64-darwin";
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        modules = [
+          ./common-config.nix
+          ./darwin-config.nix
+          home-manager.darwinModules.home-manager
+        ]
+        ++ commonModules;
+      };
+      nixosSystem = nixpkgs.lib.nixosSystem rec {
+        system = "aarch64-linux";
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        modules = [
+          ./common-config.nix
+          ./nixos-config.nix
+          home-manager.nixosModules.home-manager
+        ]
+        ++ commonModules;
+      };
+    in
+    {
+      # Set Git commit hash for darwin-version.
+      system.configurationRevision = self.rev or self.dirtyRev or null;
 
-    # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations.${host}.pkgs;
-  };
+      packages.aarch64-darwin.darwinConfigurations.weltbau = darwinSystem;
+      packages.aarch64-darwin.darwinConfigurations.calavera = darwinSystem;
+      packages.aarch64-linux.nixosConfigurations.nixos = nixosSystem;
+    };
 }

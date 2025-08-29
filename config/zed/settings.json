@@ -29,7 +29,7 @@
     "nil": {
       "initialization_options": {
         "formatting": {
-          "command": ["alejandra", "--quiet", "--"]
+          "command": ["nixfmt-rfc-style", "--quiet", "--"]
         }
       }
     }
