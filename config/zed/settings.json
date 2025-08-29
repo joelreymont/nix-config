@@ -17,11 +17,19 @@
   },
   "vim": { "use_smartcase_find": true, "default_mode": "helix_normal" },
   "soft_wrap": "editor_width",
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.DS_Store",
+    "**/.Trashes",
+    "**/.localized",
+    "**/.vscode",
+    "**/node_modules"
+  ],
   "lsp": {
     "nil": {
       "initialization_options": {
         "formatting": {
-          "command": ["alejandra", "--quiet", "--"] 
+          "command": ["alejandra", "--quiet", "--"]
         }
       }
     }

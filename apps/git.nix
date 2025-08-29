@@ -27,9 +27,6 @@
       init = {
         defaultBranch = "master";
       };
-      diff = {
-        external = "${pkgs.difftastic}/bin/difft";
-      };
       alias = {
         ci = "commit";
         co = "checkout";
