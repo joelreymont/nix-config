@@ -30,9 +30,15 @@
     pkgs = nixpkgs.legacyPackages.${platform};
   in let
     host = builtins.readFile (
-      pkgs.runCommand "hostname" {} ''
-        /usr/sbin/scutil --get LocalHostName|tr -d '\n' > $out
-      ''
+      pkgs.runCommand "hostname" {} (
+        if pkgs.stdenv.isDarwin
+        then ''
+          /usr/sbin/scutil --get LocalHostName|tr -d '\n' > $out
+        ''
+        else ''
+          hostname|tr -d '\n' > $out
+        ''
+      )
     );
   in {
     # darwin-rebuild build --flake .

@@ -16,6 +16,7 @@
     nixd
     alejandra
     uv
+    tree
   ];
 
   homebrew = {
