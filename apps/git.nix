@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   programs.git = {
     enable = true;
     userEmail = "18791+joelreymont@users.noreply.github.com";
@@ -28,6 +29,7 @@
         defaultBranch = "master";
       };
       alias = {
+        an = "commit -a --amend --no-edit";
         ci = "commit";
         co = "checkout";
         st = "status";

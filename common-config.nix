@@ -14,8 +14,14 @@
     nil
     nixd
     nixfmt-rfc-style
-    uv
+    alejandra
+    wget
     tree
+    just
+    just-lsp
+    cmake
+    fzf
+    ripgrep
   ];
 
   # Necessary for using flakes on this system.
