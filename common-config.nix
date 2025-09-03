@@ -2,9 +2,7 @@
   system,
   pkgs,
   ...
-}:
-
-{
+}: {
   environment.systemPackages = with pkgs; [
     helix
     git
@@ -13,6 +11,7 @@
     nushell
     nil
     nixd
+    nixfmt
     nixfmt-rfc-style
     alejandra
     wget

@@ -3,12 +3,11 @@
   system,
   pkgs,
   ...
-}:
-{
+}: {
   homebrew = {
     enable = false;
     onActivation.cleanup = "uninstall";
-    taps = [ ];
+    taps = [];
     brews = [
     ];
     casks = [

@@ -24,7 +24,7 @@ in {
       language-servers = ["nixd"];
 
       formatter = {
-        command = getExe nixfmt-rfc-style;
+        command = getExe alejandra;
       };
     }
   ];
@@ -37,7 +37,7 @@ in {
         nixosOpts = "${myFlake}.nixosConfigurations.manin.options";
       in {
         nixpkgs.expr = "import ${myFlake}.inputs.nixpkgs { }";
-        formatting.command = ["nixfmt-rfc-style"];
+        formatting.command = ["alejandra"];
         options = {
           nixos.expr = nixosOpts;
           home-manager.expr = "${nixosOpts}.home-manager.users.type.getSubOptions []";
