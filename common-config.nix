@@ -2,9 +2,7 @@
   system,
   pkgs,
   ...
-}:
-
-{
+}: {
   environment.systemPackages = with pkgs; [
     helix
     git
@@ -22,6 +20,7 @@
     cmake
     fzf
     ripgrep
+    ruff
   ];
 
   # Necessary for using flakes on this system.
