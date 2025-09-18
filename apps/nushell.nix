@@ -22,6 +22,8 @@
       path add "/usr/local/bin"
 
       alias g = git
+
+      def logcopy [path: string] { nix log $path | asciifilter | pbcopy }
     '';
 
     envFile.text = ''

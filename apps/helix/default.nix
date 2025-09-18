@@ -15,6 +15,7 @@ with pkgs; {
         lsp = {
           display-inlay-hints = true;
         };
+        bufferline = "multiple";
       };
     };
     languages = import ./languages.nix {

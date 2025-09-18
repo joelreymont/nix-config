@@ -21,6 +21,8 @@
     fzf
     ripgrep
     ruff
+    gh
+    ansifilter
   ];
 
   # Necessary for using flakes on this system.
