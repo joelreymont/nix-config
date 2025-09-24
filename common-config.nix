@@ -23,6 +23,7 @@
     ruff
     gh
     ansifilter
+    stow
   ];
 
   # Necessary for using flakes on this system.

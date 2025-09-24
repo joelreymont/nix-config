@@ -52,3 +52,4 @@
 (package! evil-cleverparens)
 (package! evil-smartparens)
 (package! forth-mode)
+(package! helix :recipe (:host github :repo "mgmarlow/helix-mode"))
