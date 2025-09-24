@@ -2,18 +2,30 @@
   lib,
   pkgs,
   osConfig,
+  config,
+  self,
   ...
-}: {
+}: let
+  configPath = "${config.home.homeDirectory}/git/config";
+  mkMutableSymlink = path:
+    config.lib.file.mkOutOfStoreSymlink
+    (configPath + lib.removePrefix (toString self) (toString path));
+in {
   home = {
     stateVersion = "25.05";
-    # packages = with pkgs; [
-    # ];
+    packages = with pkgs; [
+    ];
     # Map everything in the `config` directory in this
     # repository to the `.config` in my home directory
     file.".config" = {
       source = ./config;
       recursive = true;
     };
+    # Doom is a git submodule
+    # file.".config/emacs" = {
+    #   source = mkMutableSymlink ./config/emacs;
+    #   recursive = true;
+    # };
   };
 
   programs.home-manager.enable = true;

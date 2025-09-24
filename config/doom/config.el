@@ -105,12 +105,8 @@
   (evil-snipe-mode 1)
   (evil-snipe-override-mode 1))
 
-(setq doom-font (font-spec :family "Zed Mono"
-                           :size 16
-                           :weight 'normal
-                           :width 'normal
-                           :powerline-scale 1.1
-                           ))
+; (setq doom-font (font-spec :family "Zed Mono" :size 16))
+(setq doom-font (font-spec :family "MonoLisa" :size 16))
 
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)

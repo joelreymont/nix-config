@@ -38,6 +38,7 @@
 
       $env.EDITOR = 'hx'
       $env.CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG = true
+      $env.EMACS = '/Applications/Emacs.app/Contents/MacOS/emacs-nw'
     '';
   };
 }
