@@ -13,25 +13,17 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs @ {
     self,
     nix-darwin,
-    home-manager,
     nixpkgs,
   }:
   # darwin-rebuild build --flake .
   let
     commonModules = [
       {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.joel = ./home.nix;
       }
     ];
     darwinSystem = nix-darwin.lib.darwinSystem rec {
@@ -44,7 +36,6 @@
         [
           ./common-config.nix
           ./darwin-config.nix
-          home-manager.darwinModules.home-manager
         ]
         ++ commonModules;
     };
@@ -58,7 +49,6 @@
         [
           ./common-config.nix
           ./nixos-config.nix
-          home-manager.nixosModules.home-manager
         ]
         ++ commonModules;
     };
