@@ -2,7 +2,8 @@
   system,
   pkgs,
   ...
-}: {
+}:
+{
   environment.systemPackages = with pkgs; [
     helix
     git
@@ -24,6 +25,12 @@
     gh
     ansifilter
     stow
+    # development
+    rust-bin.stable.latest.default
+    (python3.withPackages (python-pkgs: [ ]))
+    cmake
+    gfortran
+    libiconv
   ];
 
   # Necessary for using flakes on this system.

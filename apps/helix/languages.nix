@@ -3,9 +3,9 @@
   lib,
   ...
 }:
-with pkgs;
-let
-  inherit (lib)
+with pkgs; let
+  inherit
+    (lib)
     getExe
     ;
 
@@ -15,14 +15,13 @@ let
     tab-width = 2;
     unit = "  ";
   };
-in
-{
+in {
   language = [
     {
       inherit auto-format indent;
       name = "nix";
 
-      language-servers = [ "nixd" ];
+      language-servers = ["nixd"];
 
       formatter = {
         command = getExe alejandra;
@@ -32,20 +31,18 @@ in
   language-server = {
     nixd = {
       command = "nixd";
-      args = [ "--semantic-tokens=true" ];
-      config.nixd =
-        let
-          myFlake = "(builtins.getFlake (toString ~/Work/Nix/nix-config))";
-          nixosOpts = "${myFlake}.nixosConfigurations.manin.options";
-        in
-        {
-          nixpkgs.expr = "import ${myFlake}.inputs.nixpkgs { }";
-          formatting.command = [ "alejandra" ];
-          options = {
-            nixos.expr = nixosOpts;
-            home-manager.expr = "${nixosOpts}.home-manager.users.type.getSubOptions []";
-          };
+      args = ["--semantic-tokens=true"];
+      config.nixd = let
+        myFlake = "(builtins.getFlake (toString ~/Work/Nix/nix-config))";
+        nixosOpts = "${myFlake}.nixosConfigurations.manin.options";
+      in {
+        nixpkgs.expr = "import ${myFlake}.inputs.nixpkgs { }";
+        formatting.command = ["alejandra"];
+        options = {
+          nixos.expr = nixosOpts;
+          home-manager.expr = "${nixosOpts}.home-manager.users.type.getSubOptions []";
         };
+      };
     };
   };
 }

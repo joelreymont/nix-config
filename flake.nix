@@ -13,19 +13,27 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
     self,
     nix-darwin,
     nixpkgs,
+    rust-overlay,
   }: let
     commonModules = [
+    ];
+    overlays = [
+      (import rust-overlay)
     ];
     darwinSystem = nix-darwin.lib.darwinSystem rec {
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
-        inherit system;
+        inherit system overlays;
         config.allowUnfree = true;
       };
       modules =
@@ -38,7 +46,7 @@
     nixosSystem = nixpkgs.lib.nixosSystem rec {
       system = "aarch64-linux";
       pkgs = import nixpkgs {
-        inherit system;
+        inherit system overlays;
         config.allowUnfree = true;
       };
       modules =

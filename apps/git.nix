@@ -2,8 +2,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   programs.git = {
     enable = true;
     userEmail = "18791+joelreymont@users.noreply.github.com";
