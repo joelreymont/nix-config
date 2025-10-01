@@ -21,16 +21,22 @@
     cmake
     fzf
     ripgrep
+    ast-grep
     ruff
     gh
+    fd
+    lazygit
     ansifilter
     stow
+    neovim
     # development
     rust-bin.stable.latest.default
     (python3.withPackages (python-pkgs: [ ]))
     cmake
     gfortran
     libiconv
+    lua
+    luarocks
   ];
 
   # Necessary for using flakes on this system.
