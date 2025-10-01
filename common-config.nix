@@ -2,10 +2,8 @@
   system,
   pkgs,
   ...
-}:
-{
+}: {
   environment.systemPackages = with pkgs; [
-    helix
     git
     git-lfs
     jujutsu
@@ -31,7 +29,7 @@
     neovim
     # development
     rust-bin.stable.latest.default
-    (python3.withPackages (python-pkgs: [ ]))
+    (python3.withPackages (python-pkgs: []))
     cmake
     gfortran
     libiconv
