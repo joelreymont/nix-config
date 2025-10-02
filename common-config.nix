@@ -35,6 +35,7 @@
     libiconv
     lua
     luarocks
+    stylua
   ];
 
   # Necessary for using flakes on this system.
