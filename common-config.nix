@@ -28,7 +28,10 @@
     stow
     neovim
     # development
-    rust-bin.stable.latest.default
+    (rust-bin.stable.latest.default.override
+      {
+        extensions = ["rust-analyzer"];
+      })
     (python3.withPackages (python-pkgs: []))
     cmake
     gfortran
