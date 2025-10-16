@@ -27,6 +27,7 @@
     ansifilter
     stow
     neovim
+    markdownlint-cli2
     # development
     (rust-bin.stable.latest.default.override
       {
